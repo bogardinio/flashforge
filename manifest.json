@@ -9,9 +9,9 @@
   "background_color": "#0f0f1a",
   "icons": [
     {
-      "src": "anki-icon.svg",
+      "src": "anki-icon.png",
       "sizes": "any",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "any maskable"
     }
   ]

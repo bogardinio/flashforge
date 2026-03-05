@@ -6,7 +6,7 @@ const LOCAL_ASSETS = [
   './',
   './index.html',
   './manifest.json',
-  './anki-icon.svg',
+  './anki-icon.png',
 ];
 
 self.addEventListener('install', e => {
