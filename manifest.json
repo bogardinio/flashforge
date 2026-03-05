@@ -9,7 +9,7 @@
   "background_color": "#0f0f1a",
   "icons": [
     {
-      "src": "icon.svg",
+      "src": "anki-icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
