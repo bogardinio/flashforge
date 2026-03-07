@@ -2,71 +2,69 @@
   "decks": [
     {
       "name": "Deutsch-Polnisch",
-      "createdAt": 1772865200269,
+      "createdAt": 1772868401178,
       "id": 1
     }
   ],
   "cards": [
     {
       "deckId": 1,
-      "front": "Wie war die Reise? MYedit",
+      "front": "Wie war die Reise? iPhone edit",
       "back": "Jak minęła podróż? (jak minewa podrusch?)",
-      "interval": 1,
+      "interval": 0,
       "repetition": 0,
-      "easeFactor": 2.36,
-      "dueDate": "2026-03-08",
+      "easeFactor": 2.5,
+      "dueDate": "2026-03-07",
       "state": "new",
-      "createdAt": 1772865200271,
-      "id": 1,
-      "pinned": true
+      "createdAt": 1772868401179,
+      "id": 1
     },
     {
       "deckId": 1,
       "front": "Ja",
       "back": "Tak (tak)",
-      "interval": 1,
-      "repetition": 1,
-      "easeFactor": 2.6,
-      "dueDate": "2026-03-08",
-      "state": "learning",
-      "createdAt": 1772865200271,
-      "id": 2,
-      "pinned": true
+      "interval": 0,
+      "repetition": 0,
+      "easeFactor": 2.5,
+      "dueDate": "2026-03-07",
+      "state": "new",
+      "createdAt": 1772868401179,
+      "id": 2
     },
     {
       "deckId": 1,
       "front": "Danke",
       "back": "Dziękuję (dschjenkuje)",
-      "interval": 1,
-      "repetition": 1,
-      "easeFactor": 2.6,
-      "dueDate": "2026-03-08",
-      "state": "learning",
-      "createdAt": 1772865200271,
+      "interval": 0,
+      "repetition": 0,
+      "easeFactor": 2.5,
+      "dueDate": "2026-03-07",
+      "state": "new",
+      "createdAt": 1772868401179,
       "id": 3
     },
     {
       "deckId": 1,
       "front": "Sehr gut",
       "back": "Bardzo dobrze (bardzo dobsche)",
-      "interval": 1,
-      "repetition": 1,
-      "easeFactor": 2.6,
-      "dueDate": "2026-03-08",
-      "state": "learning",
-      "createdAt": 1772865200271,
+      "interval": 0,
+      "repetition": 0,
+      "easeFactor": 2.5,
+      "dueDate": "2026-03-07",
+      "state": "new",
+      "createdAt": 1772868401179,
       "id": 4
     },
     {
       "deckId": 1,
       "front": "Wie heißen Sie? (formell)",
       "back": "Jak się pan nazywa? (jak sche pan nasywa?)",
-      "interval": 1,
-      "repetition": 1,
-      "easeFactor": 2.6,
-      "dueDate": "2026-03-08",
-      "state": "learning",
-      "createdAt": 1772865200271,
+      "interval": 0,
+      "repetition": 0,
+      "easeFactor": 2.5,
+      "dueDate": "2026-03-07",
+      "state": "new",
+      "createdAt": 1772868401179,
       "id": 5
     },
     {
@@ -78,7 +76,7 @@
       "easeFactor": 2.5,
       "dueDate": "2026-03-07",
       "state": "new",
-      "createdAt": 1772865200271,
+      "createdAt": 1772868401179,
       "id": 6
     },
     {
@@ -90,7 +88,7 @@
       "easeFactor": 2.5,
       "dueDate": "2026-03-07",
       "state": "new",
-      "createdAt": 1772865200271,
+      "createdAt": 1772868401179,
       "id": 7
     },
     {
@@ -102,7 +100,7 @@
       "easeFactor": 2.5,
       "dueDate": "2026-03-07",
       "state": "new",
-      "createdAt": 1772865200271,
+      "createdAt": 1772868401179,
       "id": 8
     },
     {
@@ -114,7 +112,7 @@
       "easeFactor": 2.5,
       "dueDate": "2026-03-07",
       "state": "new",
-      "createdAt": 1772865200271,
+      "createdAt": 1772868401179,
       "id": 9
     },
     {
@@ -126,7 +124,7 @@
       "easeFactor": 2.5,
       "dueDate": "2026-03-07",
       "state": "new",
-      "createdAt": 1772865200271,
+      "createdAt": 1772868401179,
       "id": 10
     },
     {
@@ -138,7 +136,7 @@
       "easeFactor": 2.5,
       "dueDate": "2026-03-07",
       "state": "new",
-      "createdAt": 1772865200271,
+      "createdAt": 1772868401179,
       "id": 11
     },
     {
@@ -150,7 +148,7 @@
       "easeFactor": 2.5,
       "dueDate": "2026-03-07",
       "state": "new",
-      "createdAt": 1772865200271,
+      "createdAt": 1772868401179,
       "id": 12
     },
     {
@@ -162,7 +160,7 @@
       "easeFactor": 2.5,
       "dueDate": "2026-03-07",
       "state": "new",
-      "createdAt": 1772865200271,
+      "createdAt": 1772868401179,
       "id": 13
     },
     {
@@ -174,7 +172,7 @@
       "easeFactor": 2.5,
       "dueDate": "2026-03-07",
       "state": "new",
-      "createdAt": 1772865200271,
+      "createdAt": 1772868401179,
       "id": 14
     },
     {
@@ -186,7 +184,7 @@
       "easeFactor": 2.5,
       "dueDate": "2026-03-07",
       "state": "new",
-      "createdAt": 1772865200271,
+      "createdAt": 1772868401179,
       "id": 15
     },
     {
@@ -198,7 +196,7 @@
       "easeFactor": 2.5,
       "dueDate": "2026-03-07",
       "state": "new",
-      "createdAt": 1772865200271,
+      "createdAt": 1772868401179,
       "id": 16
     },
     {
@@ -210,7 +208,7 @@
       "easeFactor": 2.5,
       "dueDate": "2026-03-07",
       "state": "new",
-      "createdAt": 1772865200271,
+      "createdAt": 1772868401179,
       "id": 17
     },
     {
@@ -222,7 +220,7 @@
       "easeFactor": 2.5,
       "dueDate": "2026-03-07",
       "state": "new",
-      "createdAt": 1772865200271,
+      "createdAt": 1772868401179,
       "id": 18
     },
     {
@@ -234,47 +232,11 @@
       "easeFactor": 2.5,
       "dueDate": "2026-03-07",
       "state": "new",
-      "createdAt": 1772865200271,
+      "createdAt": 1772868401179,
       "id": 19
     }
   ],
-  "reviewLog": [
-    {
-      "cardId": 1,
-      "rating": 1,
-      "reviewedAt": 1772865239924,
-      "interval": 1,
-      "id": 1
-    },
-    {
-      "cardId": 2,
-      "rating": 3,
-      "reviewedAt": 1772867836011,
-      "interval": 1,
-      "id": 2
-    },
-    {
-      "cardId": 3,
-      "rating": 3,
-      "reviewedAt": 1772867840891,
-      "interval": 1,
-      "id": 3
-    },
-    {
-      "cardId": 4,
-      "rating": 3,
-      "reviewedAt": 1772867844715,
-      "interval": 1,
-      "id": 4
-    },
-    {
-      "cardId": 5,
-      "rating": 3,
-      "reviewedAt": 1772867850026,
-      "interval": 1,
-      "id": 5
-    }
-  ],
-  "exportedAt": 1772867863682,
+  "reviewLog": [],
+  "exportedAt": 1772868639304,
   "version": 2
 }
