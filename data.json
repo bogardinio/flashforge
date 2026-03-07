@@ -24,11 +24,11 @@
       "deckId": 1,
       "front": "Ja",
       "back": "Tak (tak)",
-      "interval": 0,
-      "repetition": 0,
-      "easeFactor": 2.5,
-      "dueDate": "2026-03-07",
-      "state": "new",
+      "interval": 1,
+      "repetition": 1,
+      "easeFactor": 2.6,
+      "dueDate": "2026-03-08",
+      "state": "learning",
       "createdAt": 1772865200271,
       "id": 2,
       "pinned": true
@@ -37,11 +37,11 @@
       "deckId": 1,
       "front": "Danke",
       "back": "Dziękuję (dschjenkuje)",
-      "interval": 0,
-      "repetition": 0,
-      "easeFactor": 2.5,
-      "dueDate": "2026-03-07",
-      "state": "new",
+      "interval": 1,
+      "repetition": 1,
+      "easeFactor": 2.6,
+      "dueDate": "2026-03-08",
+      "state": "learning",
       "createdAt": 1772865200271,
       "id": 3
     },
@@ -49,11 +49,11 @@
       "deckId": 1,
       "front": "Sehr gut",
       "back": "Bardzo dobrze (bardzo dobsche)",
-      "interval": 0,
-      "repetition": 0,
-      "easeFactor": 2.5,
-      "dueDate": "2026-03-07",
-      "state": "new",
+      "interval": 1,
+      "repetition": 1,
+      "easeFactor": 2.6,
+      "dueDate": "2026-03-08",
+      "state": "learning",
       "createdAt": 1772865200271,
       "id": 4
     },
@@ -61,11 +61,11 @@
       "deckId": 1,
       "front": "Wie heißen Sie? (formell)",
       "back": "Jak się pan nazywa? (jak sche pan nasywa?)",
-      "interval": 0,
-      "repetition": 0,
-      "easeFactor": 2.5,
-      "dueDate": "2026-03-07",
-      "state": "new",
+      "interval": 1,
+      "repetition": 1,
+      "easeFactor": 2.6,
+      "dueDate": "2026-03-08",
+      "state": "learning",
       "createdAt": 1772865200271,
       "id": 5
     },
@@ -245,8 +245,36 @@
       "reviewedAt": 1772865239924,
       "interval": 1,
       "id": 1
+    },
+    {
+      "cardId": 2,
+      "rating": 3,
+      "reviewedAt": 1772867836011,
+      "interval": 1,
+      "id": 2
+    },
+    {
+      "cardId": 3,
+      "rating": 3,
+      "reviewedAt": 1772867840891,
+      "interval": 1,
+      "id": 3
+    },
+    {
+      "cardId": 4,
+      "rating": 3,
+      "reviewedAt": 1772867844715,
+      "interval": 1,
+      "id": 4
+    },
+    {
+      "cardId": 5,
+      "rating": 3,
+      "reviewedAt": 1772867850026,
+      "interval": 1,
+      "id": 5
     }
   ],
-  "exportedAt": 1772867827431,
+  "exportedAt": 1772867863682,
   "version": 2
 }
