@@ -1904,7 +1904,10 @@ async function ghSyncDown() {
 
 async function ghSyncUp(silent = false) {
   const s = getGHSettings();
-  if (!s || !s.pat) return;
+  if (!s || !s.pat) {
+    if (!silent) showToast('GitHub nicht konfiguriert — bitte PAT einrichten');
+    return;
+  }
   if (!silent) showToast('Lade auf GitHub hoch…');
   try {
     let sha;
