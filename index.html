@@ -1577,6 +1577,11 @@ async function rateCard(rating) {
 
   if (navigator.vibrate) navigator.vibrate(8);
 
+  // "Nochmal": Karte ans Ende der Queue zurücklegen
+  if (rating === 0) {
+    state.reviewQueue.push(updated);
+  }
+
   state.reviewIdx++;
   if (state.reviewIdx >= state.reviewQueue.length) {
     showDone();
