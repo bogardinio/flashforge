@@ -24,10 +24,10 @@
       "front": "Ja",
       "back": "Tak (tak)",
       "interval": 1,
-      "repetition": 0,
+      "repetition": 1,
       "easeFactor": 2.46,
       "dueDate": "2026-03-09",
-      "state": "new",
+      "state": "learning",
       "createdAt": 1772966452962,
       "id": 2
     },
@@ -61,7 +61,7 @@
       "back": "Jak się pan nazywa? (jak sche pan nasywa?)",
       "interval": 1,
       "repetition": 0,
-      "easeFactor": 2.36,
+      "easeFactor": 2.04,
       "dueDate": "2026-03-09",
       "state": "new",
       "createdAt": 1772966452962,
@@ -72,10 +72,10 @@
       "front": "Ich heiße…",
       "back": "Nazywam się… (nasywam sche…)",
       "interval": 1,
-      "repetition": 0,
+      "repetition": 1,
       "easeFactor": 2.06,
       "dueDate": "2026-03-09",
-      "state": "new",
+      "state": "learning",
       "createdAt": 1772966452962,
       "id": 6
     },
@@ -84,10 +84,10 @@
       "front": "Und Sie, wie heißen Sie?",
       "back": "A pan, jak się pan nazywa? (a pan, jak sche pan nasywa?)",
       "interval": 1,
-      "repetition": 0,
+      "repetition": 1,
       "easeFactor": 2.04,
       "dueDate": "2026-03-09",
-      "state": "new",
+      "state": "learning",
       "createdAt": 1772966452962,
       "id": 7
     },
@@ -149,7 +149,8 @@
       "dueDate": "2026-03-09",
       "state": "new",
       "createdAt": 1772966452962,
-      "id": 12
+      "id": 12,
+      "pinned": true
     },
     {
       "deckId": 1,
@@ -157,7 +158,7 @@
       "back": "Dobry wieczór (dobry wjetschur)",
       "interval": 1,
       "repetition": 0,
-      "easeFactor": 2.04,
+      "easeFactor": 1.9,
       "dueDate": "2026-03-09",
       "state": "new",
       "createdAt": 1772966452962,
@@ -180,10 +181,10 @@
       "front": "Hallo / Tschüss",
       "back": "Cześć (tschesch-tsch)",
       "interval": 1,
-      "repetition": 0,
-      "easeFactor": 2.56,
+      "repetition": 1,
+      "easeFactor": 2.66,
       "dueDate": "2026-03-09",
-      "state": "new",
+      "state": "learning",
       "createdAt": 1772966452962,
       "id": 15,
       "pinned": true
@@ -192,11 +193,11 @@
       "deckId": 1,
       "front": "Wie läuft's?",
       "back": "Jak leci? (jak letzi?)",
-      "interval": 8,
-      "repetition": 2,
-      "easeFactor": 2.7,
-      "dueDate": "2026-03-16",
-      "state": "review",
+      "interval": 1,
+      "repetition": 0,
+      "easeFactor": 2.38,
+      "dueDate": "2026-03-09",
+      "state": "new",
       "createdAt": 1772966452962,
       "id": 16,
       "pinned": true
@@ -205,10 +206,10 @@
       "deckId": 1,
       "front": "Hervorragend",
       "back": "Świetnie (schwjetnje)",
-      "interval": 8,
-      "repetition": 2,
+      "interval": 22,
+      "repetition": 3,
       "easeFactor": 2.7,
-      "dueDate": "2026-03-16",
+      "dueDate": "2026-03-30",
       "state": "review",
       "createdAt": 1772966452962,
       "id": 17
@@ -219,7 +220,7 @@
       "back": "A u ciebie? (a u tschebje?)",
       "interval": 1,
       "repetition": 0,
-      "easeFactor": 1.96,
+      "easeFactor": 1.64,
       "dueDate": "2026-03-09",
       "state": "new",
       "createdAt": 1772966452962,
@@ -245,7 +246,7 @@
       "back": "je dschemme",
       "interval": 1,
       "repetition": 0,
-      "easeFactor": 2.36,
+      "easeFactor": 2.04,
       "dueDate": "2026-03-09",
       "state": "new",
       "createdAt": 1772978136811,
@@ -665,8 +666,78 @@
       "reviewedAt": 1772998860573,
       "interval": 22,
       "id": 59
+    },
+    {
+      "cardId": 16,
+      "rating": 0,
+      "reviewedAt": 1772998875510,
+      "interval": 1,
+      "id": 60
+    },
+    {
+      "cardId": 17,
+      "rating": 2,
+      "reviewedAt": 1772998880074,
+      "interval": 22,
+      "id": 61
+    },
+    {
+      "cardId": 2,
+      "rating": 2,
+      "reviewedAt": 1772998883458,
+      "interval": 1,
+      "id": 62
+    },
+    {
+      "cardId": 5,
+      "rating": 0,
+      "reviewedAt": 1772998893242,
+      "interval": 1,
+      "id": 63
+    },
+    {
+      "cardId": 7,
+      "rating": 2,
+      "reviewedAt": 1772998903376,
+      "interval": 1,
+      "id": 64
+    },
+    {
+      "cardId": 13,
+      "rating": 1,
+      "reviewedAt": 1772998918230,
+      "interval": 1,
+      "id": 65
+    },
+    {
+      "cardId": 15,
+      "rating": 3,
+      "reviewedAt": 1772998926544,
+      "interval": 1,
+      "id": 66
+    },
+    {
+      "cardId": 20,
+      "rating": 0,
+      "reviewedAt": 1772998933510,
+      "interval": 1,
+      "id": 67
+    },
+    {
+      "cardId": 18,
+      "rating": 0,
+      "reviewedAt": 1772998942262,
+      "interval": 1,
+      "id": 68
+    },
+    {
+      "cardId": 6,
+      "rating": 2,
+      "reviewedAt": 1772998946976,
+      "interval": 1,
+      "id": 69
     }
   ],
-  "exportedAt": 1772998871498,
+  "exportedAt": 1772998954384,
   "version": 2
 }
