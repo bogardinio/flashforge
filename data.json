@@ -11,11 +11,11 @@
       "deckId": 1,
       "front": "Wie war die Reise?",
       "back": "Jak minęła podróż? (jak minewa podrusch?)",
-      "interval": 8,
-      "repetition": 2,
-      "easeFactor": 2.7,
-      "dueDate": "2026-03-16",
-      "state": "review",
+      "interval": 1,
+      "repetition": 0,
+      "easeFactor": 2.56,
+      "dueDate": "2026-03-09",
+      "state": "new",
       "createdAt": 1772966452962,
       "id": 1
     },
@@ -35,10 +35,10 @@
       "deckId": 1,
       "front": "Danke",
       "back": "Dziękuję (dschjenkuje)",
-      "interval": 8,
-      "repetition": 2,
-      "easeFactor": 2.7,
-      "dueDate": "2026-03-16",
+      "interval": 29,
+      "repetition": 3,
+      "easeFactor": 2.8,
+      "dueDate": "2026-04-06",
       "state": "review",
       "createdAt": 1772966452962,
       "id": 3
@@ -47,10 +47,10 @@
       "deckId": 1,
       "front": "Sehr gut",
       "back": "Bardzo dobrze (bardzo dobsche)",
-      "interval": 8,
-      "repetition": 2,
-      "easeFactor": 2.7,
-      "dueDate": "2026-03-16",
+      "interval": 29,
+      "repetition": 3,
+      "easeFactor": 2.8,
+      "dueDate": "2026-04-06",
       "state": "review",
       "createdAt": 1772966452962,
       "id": 4
@@ -71,11 +71,11 @@
       "deckId": 1,
       "front": "Ich heiße…",
       "back": "Nazywam się… (nasywam sche…)",
-      "interval": 8,
-      "repetition": 2,
-      "easeFactor": 2.38,
-      "dueDate": "2026-03-16",
-      "state": "review",
+      "interval": 1,
+      "repetition": 0,
+      "easeFactor": 2.06,
+      "dueDate": "2026-03-09",
+      "state": "new",
       "createdAt": 1772966452962,
       "id": 6
     },
@@ -95,11 +95,11 @@
       "deckId": 1,
       "front": "Wie heißt du? (informell)",
       "back": "Jak się nazywasz? (jak sche nasywasz?)",
-      "interval": 8,
-      "repetition": 2,
-      "easeFactor": 2.7,
-      "dueDate": "2026-03-16",
-      "state": "review",
+      "interval": 1,
+      "repetition": 0,
+      "easeFactor": 2.56,
+      "dueDate": "2026-03-09",
+      "state": "new",
       "createdAt": 1772966452962,
       "id": 8
     },
@@ -107,10 +107,10 @@
       "deckId": 1,
       "front": "Ich und du",
       "back": "Ja i ty (ja i ty)",
-      "interval": 8,
-      "repetition": 2,
-      "easeFactor": 2.7,
-      "dueDate": "2026-03-16",
+      "interval": 29,
+      "repetition": 3,
+      "easeFactor": 2.8,
+      "dueDate": "2026-04-06",
       "state": "review",
       "createdAt": 1772966452962,
       "id": 9
@@ -119,10 +119,10 @@
       "deckId": 1,
       "front": "Freut mich",
       "back": "Miło mi (miwo mi)",
-      "interval": 8,
-      "repetition": 2,
+      "interval": 22,
+      "repetition": 3,
       "easeFactor": 2.7,
-      "dueDate": "2026-03-16",
+      "dueDate": "2026-03-30",
       "state": "review",
       "createdAt": 1772966452962,
       "id": 10
@@ -131,10 +131,10 @@
       "deckId": 1,
       "front": "Sehr erfreut",
       "back": "Bardzo mi miło (bardzo mi miwo)",
-      "interval": 8,
-      "repetition": 2,
+      "interval": 19,
+      "repetition": 3,
       "easeFactor": 2.38,
-      "dueDate": "2026-03-16",
+      "dueDate": "2026-03-27",
       "state": "review",
       "createdAt": 1772966452962,
       "id": 11
@@ -143,11 +143,11 @@
       "deckId": 1,
       "front": "Guten Tag",
       "back": "Dzień dobry (dschenj dobry)",
-      "interval": 8,
-      "repetition": 2,
-      "easeFactor": 1.96,
-      "dueDate": "2026-03-16",
-      "state": "review",
+      "interval": 1,
+      "repetition": 0,
+      "easeFactor": 1.64,
+      "dueDate": "2026-03-09",
+      "state": "new",
       "createdAt": 1772966452962,
       "id": 12
     },
@@ -167,10 +167,10 @@
       "deckId": 1,
       "front": "Gute Nacht",
       "back": "Dobranoc (dobranotz)",
-      "interval": 8,
-      "repetition": 2,
+      "interval": 22,
+      "repetition": 3,
       "easeFactor": 2.7,
-      "dueDate": "2026-03-16",
+      "dueDate": "2026-03-30",
       "state": "review",
       "createdAt": 1772966452962,
       "id": 14
@@ -199,7 +199,7 @@
       "state": "review",
       "createdAt": 1772966452962,
       "id": 16,
-      "pinned": false
+      "pinned": true
     },
     {
       "deckId": 1,
@@ -218,10 +218,10 @@
       "front": "Und bei dir?",
       "back": "A u ciebie? (a u tschebje?)",
       "interval": 1,
-      "repetition": 1,
-      "easeFactor": 2.28,
+      "repetition": 0,
+      "easeFactor": 1.96,
       "dueDate": "2026-03-09",
-      "state": "learning",
+      "state": "new",
       "createdAt": 1772966452962,
       "id": 18,
       "pinned": true
@@ -231,10 +231,10 @@
       "front": "Ich kann nicht klagen",
       "back": "Nie narzekam (nje naschekam)",
       "interval": 1,
-      "repetition": 1,
-      "easeFactor": 1.72,
+      "repetition": 0,
+      "easeFactor": 1.58,
       "dueDate": "2026-03-09",
-      "state": "learning",
+      "state": "new",
       "createdAt": 1772966452962,
       "id": 19,
       "pinned": true
@@ -581,8 +581,92 @@
       "reviewedAt": 1772996034616,
       "interval": 1,
       "id": 47
+    },
+    {
+      "cardId": 18,
+      "rating": 0,
+      "reviewedAt": 1772998784636,
+      "interval": 1,
+      "id": 48
+    },
+    {
+      "cardId": 19,
+      "rating": 1,
+      "reviewedAt": 1772998792468,
+      "interval": 1,
+      "id": 49
+    },
+    {
+      "cardId": 1,
+      "rating": 1,
+      "reviewedAt": 1772998799088,
+      "interval": 1,
+      "id": 50
+    },
+    {
+      "cardId": 3,
+      "rating": 3,
+      "reviewedAt": 1772998801886,
+      "interval": 29,
+      "id": 51
+    },
+    {
+      "cardId": 4,
+      "rating": 3,
+      "reviewedAt": 1772998809486,
+      "interval": 29,
+      "id": 52
+    },
+    {
+      "cardId": 6,
+      "rating": 0,
+      "reviewedAt": 1772998818100,
+      "interval": 1,
+      "id": 53
+    },
+    {
+      "cardId": 8,
+      "rating": 1,
+      "reviewedAt": 1772998826970,
+      "interval": 1,
+      "id": 54
+    },
+    {
+      "cardId": 9,
+      "rating": 3,
+      "reviewedAt": 1772998829468,
+      "interval": 29,
+      "id": 55
+    },
+    {
+      "cardId": 10,
+      "rating": 2,
+      "reviewedAt": 1772998833404,
+      "interval": 22,
+      "id": 56
+    },
+    {
+      "cardId": 11,
+      "rating": 2,
+      "reviewedAt": 1772998845948,
+      "interval": 19,
+      "id": 57
+    },
+    {
+      "cardId": 12,
+      "rating": 0,
+      "reviewedAt": 1772998851326,
+      "interval": 1,
+      "id": 58
+    },
+    {
+      "cardId": 14,
+      "rating": 2,
+      "reviewedAt": 1772998860573,
+      "interval": 22,
+      "id": 59
     }
   ],
-  "exportedAt": 1772996034636,
+  "exportedAt": 1772998871498,
   "version": 2
 }
