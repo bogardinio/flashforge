@@ -1467,7 +1467,7 @@ async function renderHome() {
         <button class="deck-cta btn-study-deck" style="flex:1;margin-top:0;">
           ${allDue > 0 ? `▶ Lernen (${allDue})` : '↺ Alles wiederholen'}
         </button>
-        ${pinned > 0 ? `<button class="deck-cta btn-pinned-study" style="flex:0 0 auto;margin-top:0;padding:8px 10px;background:rgba(251,191,36,.15);color:#fcd34d;border:1px solid rgba(251,191,36,.3);" title="Nur markierte Karten lernen">⭐ Markierte</button>` : ''}
+        ${pinned > 0 ? `<button class="deck-cta btn-pinned-study" style="flex:0 0 auto;width:auto;margin-top:0;padding:8px 10px;background:rgba(251,191,36,.15);color:#fcd34d;border:1px solid rgba(251,191,36,.3);" title="Nur markierte Karten lernen">⭐ Markierte</button>` : ''}
       </div>`;
 
     card.querySelector('.btn-study-deck').addEventListener('click', e => {
