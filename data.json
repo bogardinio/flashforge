@@ -287,10 +287,10 @@
       "deckId": 2,
       "front": "Deutsch",
       "back": "Polnisch",
-      "interval": 1,
-      "repetition": 1,
+      "interval": 6,
+      "repetition": 2,
       "easeFactor": 2.5,
-      "dueDate": "2026-03-10",
+      "dueDate": "2026-03-15",
       "state": "learning",
       "createdAt": 1773068169760,
       "id": 23
@@ -305,7 +305,8 @@
       "dueDate": "2026-03-10",
       "state": "learning",
       "createdAt": 1773068169760,
-      "id": 24
+      "id": 24,
+      "pinned": true
     },
     {
       "deckId": 2,
@@ -971,8 +972,15 @@
       "reviewedAt": 1773068199294,
       "interval": 1,
       "id": 101
+    },
+    {
+      "cardId": 23,
+      "rating": 2,
+      "reviewedAt": 1773069472974,
+      "interval": 6,
+      "id": 102
     }
   ],
-  "exportedAt": 1773068830593,
+  "exportedAt": 1773069475422,
   "version": 2
 }
