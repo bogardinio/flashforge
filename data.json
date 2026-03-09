@@ -1,7 +1,7 @@
 {
   "decks": [
     {
-      "name": "Deutsch-Polnisch",
+      "name": "Deutsch-Polnisch1",
       "createdAt": 1772966452962,
       "id": 1
     }
@@ -911,6 +911,6 @@
       "id": 98
     }
   ],
-  "exportedAt": 1773066505674,
+  "exportedAt": 1773067980568,
   "version": 2
 }
