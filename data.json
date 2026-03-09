@@ -4,6 +4,11 @@
       "name": "Deutsch-Polnisch1",
       "createdAt": 1772966452962,
       "id": 1
+    },
+    {
+      "name": "polnisch2",
+      "createdAt": 1773068169759,
+      "id": 2
     }
   ],
   "cards": [
@@ -277,6 +282,42 @@
       "state": "learning",
       "createdAt": 1773049358336,
       "id": 22
+    },
+    {
+      "deckId": 2,
+      "front": "Deutsch",
+      "back": "Polnisch",
+      "interval": 1,
+      "repetition": 1,
+      "easeFactor": 2.5,
+      "dueDate": "2026-03-10",
+      "state": "learning",
+      "createdAt": 1773068169760,
+      "id": 23
+    },
+    {
+      "deckId": 2,
+      "front": "Wie war die Reise?",
+      "back": "Jak minęła podróż? (jak minewa podrusch?)",
+      "interval": 1,
+      "repetition": 1,
+      "easeFactor": 2.5,
+      "dueDate": "2026-03-10",
+      "state": "learning",
+      "createdAt": 1773068169760,
+      "id": 24
+    },
+    {
+      "deckId": 2,
+      "front": "Ja",
+      "back": "Tak (tak)",
+      "interval": 1,
+      "repetition": 1,
+      "easeFactor": 2.5,
+      "dueDate": "2026-03-10",
+      "state": "learning",
+      "createdAt": 1773068169760,
+      "id": 25
     }
   ],
   "reviewLog": [
@@ -909,8 +950,29 @@
       "reviewedAt": 1773066505391,
       "interval": 1,
       "id": 98
+    },
+    {
+      "cardId": 23,
+      "rating": 2,
+      "reviewedAt": 1773068191790,
+      "interval": 1,
+      "id": 99
+    },
+    {
+      "cardId": 24,
+      "rating": 2,
+      "reviewedAt": 1773068197094,
+      "interval": 1,
+      "id": 100
+    },
+    {
+      "cardId": 25,
+      "rating": 2,
+      "reviewedAt": 1773068199294,
+      "interval": 1,
+      "id": 101
     }
   ],
-  "exportedAt": 1773067980568,
+  "exportedAt": 1773068199541,
   "version": 2
 }
