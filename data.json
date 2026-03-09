@@ -257,11 +257,11 @@
       "deckId": 1,
       "front": "alles klar - dann erstmal!",
       "back": "narasche (eselsbrücke - garage)\ncool kids sagen: nara",
-      "interval": 0,
-      "repetition": 0,
+      "interval": 1,
+      "repetition": 1,
       "easeFactor": 2.5,
-      "dueDate": "2026-03-09",
-      "state": "new",
+      "dueDate": "2026-03-10",
+      "state": "learning",
       "createdAt": 1773048708151,
       "id": 21,
       "pinned": true
@@ -270,11 +270,11 @@
       "deckId": 1,
       "front": "Arzt",
       "back": "lekasch (Eselsbrücke leck-Arsch)",
-      "interval": 0,
-      "repetition": 0,
+      "interval": 1,
+      "repetition": 1,
       "easeFactor": 2.5,
-      "dueDate": "2026-03-09",
-      "state": "new",
+      "dueDate": "2026-03-10",
+      "state": "learning",
       "createdAt": 1773049358336,
       "id": 22
     }
@@ -895,8 +895,22 @@
       "reviewedAt": 1773031658784,
       "interval": 1,
       "id": 96
+    },
+    {
+      "cardId": 21,
+      "rating": 2,
+      "reviewedAt": 1773066502230,
+      "interval": 1,
+      "id": 97
+    },
+    {
+      "cardId": 22,
+      "rating": 2,
+      "reviewedAt": 1773066505391,
+      "interval": 1,
+      "id": 98
     }
   ],
-  "exportedAt": 1773049377825,
+  "exportedAt": 1773066505674,
   "version": 2
 }
