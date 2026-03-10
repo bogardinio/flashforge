@@ -1,6 +1,13 @@
 # FlashForge ⚡
 
-Karteikarten-App fürs iPhone — offline, installierbar, Anki-kompatibel.
+
+Karteikarten-App fürs iPhone 
+
+* funktionert offline  
+* installierbar (als Progressive web app)
+* Anki-kompatibel (selber Algorithmus zum widerholen der Karten)
+* optional für profi user user: speicher die karten in deinem eigenen github account und halte so den stand auf verschiedenen geräten in Sync 
+* funktioniert selbstverständlich auch im browser
 
 ---
 
