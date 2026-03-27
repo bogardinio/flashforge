@@ -1433,7 +1433,7 @@ function splitCSVLine(line, delim) {
 // ════════════════════════════════════════════════════════════
 // APP STATE
 // ════════════════════════════════════════════════════════════
-const APP_VERSION = '1.1.1';
+const APP_VERSION = '1.1.2';
 const db    = new FlashDB();
 const state = {
   // review session
@@ -1807,6 +1807,8 @@ async function confirmImport() {
     }
 
     const total = state.parsedCards.length;
+    btn.disabled = false;
+    btn.textContent = 'Importieren';
     showToast(`${total} Karte${total !== 1 ? 'n' : ''} importiert!`);
     navigate('home');
 
@@ -2005,6 +2007,13 @@ async function ghAutoSync() {
   if (!s || !s.pat) return;
   try {
     const { data } = await ghGet(s);
+    const localData = await db.exportAll();
+    const remoteTs = data.exportedAt || 0;
+    const localTs  = localData.exportedAt || 0;
+    if (remoteTs <= localTs) {
+      console.log('Auto-sync: GitHub nicht neuer, kein Import');
+      return;
+    }
     await db.importAll(data);
     await db.setSetting('lastGHSync', Date.now());
     renderHome();
