@@ -1495,7 +1495,7 @@ function splitCSVLine(line, delim) {
 // ════════════════════════════════════════════════════════════
 // APP STATE
 // ════════════════════════════════════════════════════════════
-const APP_VERSION = '1.1.7';
+const APP_VERSION = '1.1.8';
 const db    = new FlashDB();
 const state = {
   // review session
@@ -1673,6 +1673,7 @@ function showCard() {
   _audioRepIdx = 0;
   const audioBtn = document.getElementById('btn-card-audio');
   audioBtn.classList.toggle('hidden', !card.audioTimestamps);
+  if (card.audioTimestamps) preloadCardAudio();
 
   // Reset flip
   document.getElementById('card-inner').classList.remove('flipped');
@@ -2394,27 +2395,57 @@ function parseAudioTimestamps(str) {
   }).filter(r => !isNaN(r.start) && !isNaN(r.end));
 }
 
-async function playCardAudio() {
+// Preload audio when card is shown (so play() works synchronously on iOS)
+async function preloadCardAudio() {
   const card = state.reviewQueue[state.reviewIdx];
   if (!card || !card.audioTimestamps) return;
 
-  // If no audioFile stored on card, try to find it from other cards in same deck
+  // Resolve missing audioFile from sibling cards
   if (!card.audioFile) {
     const deckCards = await db.getCards(card.deckId);
     const withAudio = deckCards.find(c => c.audioFile);
     if (withAudio) {
       card.audioFile = withAudio.audioFile;
       await db.updateCard(card);
-    } else {
-      showToast('Keine Audio-Datei zugeordnet — im Deck-Editor hochladen');
-      return;
     }
   }
+  if (!card.audioFile) return;
+
+  // Already loaded for this file?
+  if (_audioEl && _audioEl.dataset.name === card.audioFile) return;
+
+  const rec = await db.getAudio(card.audioFile);
+  if (!rec || !rec.blob) return;
+
+  if (_audioEl) { _audioEl.pause(); URL.revokeObjectURL(_audioEl.src); }
+  const url = URL.createObjectURL(rec.blob instanceof Blob ? rec.blob : new Blob([rec.blob]));
+  _audioEl = new Audio(url);
+  _audioEl.dataset.name = card.audioFile;
+  _audioEl.addEventListener('timeupdate', () => {
+    if (_audioStopAt != null && _audioEl.currentTime >= _audioStopAt) {
+      stopCardAudio();
+    }
+  });
+  _audioEl.addEventListener('error', () => {
+    showToast('Audio konnte nicht abgespielt werden');
+    stopCardAudio();
+  });
+}
+
+function playCardAudio() {
+  const card = state.reviewQueue[state.reviewIdx];
+  if (!card || !card.audioTimestamps) return;
 
   const btn = document.getElementById('btn-card-audio');
 
+  if (!_audioEl || _audioEl.dataset.name !== (card.audioFile || '')) {
+    showToast('Audio wird geladen…');
+    preloadCardAudio().then(() => playCardAudio());
+    return;
+  }
+
   // If already playing, stop
-  if (_audioEl && !_audioEl.paused) {
+  if (!_audioEl.paused) {
     stopCardAudio();
     return;
   }
@@ -2425,36 +2456,14 @@ async function playCardAudio() {
   // Cycle through repetitions on repeated presses
   _audioReps = reps;
   _audioRepIdx = (_audioRepIdx + 1) % reps.length;
-  // First press always plays first rep
-  if (!_audioEl) _audioRepIdx = 0;
+  if (_audioRepIdx === 1 && _audioReps.length > 1) _audioRepIdx = 0; // first press = first rep
 
   const rep = reps[_audioRepIdx];
-
-  // Load audio from IndexedDB if needed
-  if (!_audioEl || _audioEl.dataset.name !== card.audioFile) {
-    const rec = await db.getAudio(card.audioFile);
-    if (!rec || !rec.blob) {
-      showToast('Audio-Datei "' + card.audioFile + '" nicht in DB gefunden');
-      return;
-    }
-    if (_audioEl) { _audioEl.pause(); URL.revokeObjectURL(_audioEl.src); }
-    const url = URL.createObjectURL(rec.blob instanceof Blob ? rec.blob : new Blob([rec.blob]));
-    _audioEl = new Audio(url);
-    _audioEl.dataset.name = card.audioFile;
-    _audioEl.addEventListener('timeupdate', () => {
-      if (_audioStopAt != null && _audioEl.currentTime >= _audioStopAt) {
-        stopCardAudio();
-      }
-    });
-    _audioEl.addEventListener('error', () => {
-      showToast('Audio konnte nicht abgespielt werden');
-      stopCardAudio();
-    });
-  }
 
   btn.classList.add('playing');
   _audioEl.currentTime = Math.max(0, rep.start - 0.15);
   _audioStopAt = rep.end;
+  // Synchronous play() call — no await before this, so iOS user-gesture is preserved
   _audioEl.play().catch(err => {
     console.error('Audio play error:', err);
     showToast('Audio-Wiedergabe fehlgeschlagen');
