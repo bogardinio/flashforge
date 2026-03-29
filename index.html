@@ -1495,7 +1495,7 @@ function splitCSVLine(line, delim) {
 // ════════════════════════════════════════════════════════════
 // APP STATE
 // ════════════════════════════════════════════════════════════
-const APP_VERSION = '1.1.6';
+const APP_VERSION = '1.1.7';
 const db    = new FlashDB();
 const state = {
   // review session
@@ -1672,7 +1672,7 @@ function showCard() {
   stopCardAudio();
   _audioRepIdx = 0;
   const audioBtn = document.getElementById('btn-card-audio');
-  audioBtn.classList.toggle('hidden', !(card.audioFile && card.audioTimestamps));
+  audioBtn.classList.toggle('hidden', !card.audioTimestamps);
 
   // Reset flip
   document.getElementById('card-inner').classList.remove('flipped');
@@ -2396,7 +2396,20 @@ function parseAudioTimestamps(str) {
 
 async function playCardAudio() {
   const card = state.reviewQueue[state.reviewIdx];
-  if (!card || !card.audioFile || !card.audioTimestamps) return;
+  if (!card || !card.audioTimestamps) return;
+
+  // If no audioFile stored on card, try to find it from other cards in same deck
+  if (!card.audioFile) {
+    const deckCards = await db.getCards(card.deckId);
+    const withAudio = deckCards.find(c => c.audioFile);
+    if (withAudio) {
+      card.audioFile = withAudio.audioFile;
+      await db.updateCard(card);
+    } else {
+      showToast('Keine Audio-Datei zugeordnet — im Deck-Editor hochladen');
+      return;
+    }
+  }
 
   const btn = document.getElementById('btn-card-audio');
 
@@ -2417,24 +2430,36 @@ async function playCardAudio() {
 
   const rep = reps[_audioRepIdx];
 
-  // Load audio blob from IndexedDB if needed
+  // Load audio from IndexedDB if needed
   if (!_audioEl || _audioEl.dataset.name !== card.audioFile) {
     const rec = await db.getAudio(card.audioFile);
-    if (!rec) { showToast('Audio-Datei nicht gefunden'); return; }
+    if (!rec || !rec.blob) {
+      showToast('Audio-Datei "' + card.audioFile + '" nicht in DB gefunden');
+      return;
+    }
     if (_audioEl) { _audioEl.pause(); URL.revokeObjectURL(_audioEl.src); }
-    _audioEl = new Audio(URL.createObjectURL(rec.blob));
+    const url = URL.createObjectURL(rec.blob instanceof Blob ? rec.blob : new Blob([rec.blob]));
+    _audioEl = new Audio(url);
     _audioEl.dataset.name = card.audioFile;
     _audioEl.addEventListener('timeupdate', () => {
       if (_audioStopAt != null && _audioEl.currentTime >= _audioStopAt) {
         stopCardAudio();
       }
     });
+    _audioEl.addEventListener('error', () => {
+      showToast('Audio konnte nicht abgespielt werden');
+      stopCardAudio();
+    });
   }
 
   btn.classList.add('playing');
   _audioEl.currentTime = Math.max(0, rep.start - 0.15);
   _audioStopAt = rep.end;
-  _audioEl.play();
+  _audioEl.play().catch(err => {
+    console.error('Audio play error:', err);
+    showToast('Audio-Wiedergabe fehlgeschlagen');
+    stopCardAudio();
+  });
 }
 
 function stopCardAudio() {
