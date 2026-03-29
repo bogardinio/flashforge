@@ -1496,7 +1496,7 @@ function splitCSVLine(line, delim) {
 // ════════════════════════════════════════════════════════════
 // APP STATE
 // ════════════════════════════════════════════════════════════
-const APP_VERSION = '1.1.9';
+const APP_VERSION = '1.2.0';
 const db    = new FlashDB();
 const state = {
   // review session
@@ -2397,7 +2397,7 @@ function parseAudioTimestamps(str) {
   }).filter(r => !isNaN(r.start) && !isNaN(r.end));
 }
 
-// Preload audio when card is shown (so play() works synchronously on iOS)
+// Preload audio when card is shown — uses SW-intercepted URL (works on iOS)
 async function preloadCardAudio() {
   const card = state.reviewQueue[state.reviewIdx];
   if (!card || !card.audioTimestamps) return;
@@ -2416,20 +2416,17 @@ async function preloadCardAudio() {
   // Already loaded for this file?
   if (_audioLoadedName === card.audioFile) return;
 
-  const rec = await db.getAudio(card.audioFile);
-  if (!rec || !rec.blob) return;
-
   const el = _audioEl();
-  if (el.src) URL.revokeObjectURL(el.src);
-  el.src = URL.createObjectURL(rec.blob instanceof Blob ? rec.blob : new Blob([rec.blob]));
-  el.load();  // Important for iOS — triggers resource loading
+  // SW intercepts ./audio/* and serves blob from IndexedDB
+  el.src = './audio/' + card.audioFile;
+  el.load();
   _audioLoadedName = card.audioFile;
 }
 
 function playCardAudio() {
   const el = _audioEl();
   const card = state.reviewQueue[state.reviewIdx];
-  if (!card || !card.audioTimestamps || !el.src) {
+  if (!card || !card.audioTimestamps || !_audioLoadedName) {
     showToast('Audio nicht verfügbar — Deck-Editor → MP3 zuordnen');
     return;
   }
