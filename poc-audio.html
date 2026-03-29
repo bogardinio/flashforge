@@ -60,27 +60,14 @@
 </div>
 
 <script>
-// Register PoC service worker
+// Check if SW is active (we use the main FlashForge sw.js, not a separate one)
 const swStatus = document.getElementById('sw-status');
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./poc-sw.js')
-    .then(reg => {
-      swStatus.textContent = 'Service Worker aktiv';
-      swStatus.className = 'status ok';
-      // Wait for it to activate
-      if (reg.installing || reg.waiting) {
-        const sw = reg.installing || reg.waiting;
-        sw.addEventListener('statechange', () => {
-          if (sw.state === 'activated') {
-            swStatus.textContent = 'Service Worker aktiv (neu installiert)';
-          }
-        });
-      }
-    })
-    .catch(err => {
-      swStatus.textContent = 'SW Fehler: ' + err.message;
-      swStatus.className = 'status err';
-    });
+if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+  swStatus.textContent = 'Service Worker aktiv (FlashForge SW)';
+  swStatus.className = 'status ok';
+} else if ('serviceWorker' in navigator) {
+  swStatus.textContent = 'Service Worker registriert, aber noch nicht aktiv — Seite neu laden';
+  swStatus.className = 'status wait';
 } else {
   swStatus.textContent = 'Service Worker nicht verfuegbar';
   swStatus.className = 'status err';
@@ -148,10 +135,13 @@ document.getElementById('btn-test3-store').addEventListener('click', async () =>
   const blob = await resp.blob();
   logTo('log3', 'Blob: ' + blob.size + ' bytes');
 
-  // Store in IndexedDB
+  // Store in FlashForge IndexedDB (same DB the SW reads from)
   const db = await new Promise((res, rej) => {
-    const req = indexedDB.open('poc-audio-test', 1);
-    req.onupgradeneeded = e => e.target.result.createObjectStore('audio', { keyPath: 'name' });
+    const req = indexedDB.open('flashforge', 3);
+    req.onupgradeneeded = e => {
+      const d = e.target.result;
+      if (!d.objectStoreNames.contains('audio')) d.createObjectStore('audio', { keyPath: 'name' });
+    };
     req.onsuccess = e => res(e.target.result);
     req.onerror = () => rej(req.error);
   });
@@ -161,7 +151,7 @@ document.getElementById('btn-test3-store').addEventListener('click', async () =>
     tx.oncomplete = res;
     tx.onerror = () => rej(tx.error);
   });
-  logTo('log3', 'Gespeichert in IndexedDB als "test.mp3"');
+  logTo('log3', 'Gespeichert in FlashForge-DB als "test.mp3"');
 
   // Set audio src to SW-intercepted URL
   audio3.src = './audio/test.mp3';
