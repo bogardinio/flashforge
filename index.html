@@ -1496,7 +1496,7 @@ function splitCSVLine(line, delim) {
 // ════════════════════════════════════════════════════════════
 // APP STATE
 // ════════════════════════════════════════════════════════════
-const APP_VERSION = '1.2.0';
+const APP_VERSION = '1.2.1';
 const db    = new FlashDB();
 const state = {
   // review session
@@ -2539,8 +2539,14 @@ function wireEvents() {
 
   // Review: card flip on tap/click
   const cardEl = document.getElementById('study-card');
-  cardEl.addEventListener('click',      flipCard);
-  cardEl.addEventListener('touchstart', e => { e.preventDefault(); flipCard(); }, { passive: false });
+  cardEl.addEventListener('click', e => {
+    if (e.target.closest('.audio-play-btn')) return;
+    flipCard();
+  });
+  cardEl.addEventListener('touchstart', e => {
+    if (e.target.closest('.audio-play-btn')) return;
+    e.preventDefault(); flipCard();
+  }, { passive: false });
 
   // Review: rating buttons
   document.getElementById('rating-area').addEventListener('click', e => {
@@ -2604,8 +2610,14 @@ function wireEvents() {
     e.target.value = '';
   });
 
-  // Review: audio play button
-  document.getElementById('btn-card-audio').addEventListener('click', e => {
+  // Review: audio play button (touchend for iOS, click for desktop)
+  const audioBtn = document.getElementById('btn-card-audio');
+  audioBtn.addEventListener('touchend', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    playCardAudio();
+  });
+  audioBtn.addEventListener('click', e => {
     e.stopPropagation();
     playCardAudio();
   });
