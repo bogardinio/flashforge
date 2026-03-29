@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audio PoC — iOS Test</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, sans-serif; background: #1a1a2e; color: #e0e0e0; padding: 16px; }
+  h1 { font-size: 18px; margin-bottom: 4px; color: #a78bfa; }
+  .info { font-size: 13px; color: #888; margin-bottom: 16px; }
+  .card {
+    background: #22223a; border-radius: 10px; padding: 14px;
+    margin-bottom: 10px; border: 1px solid #333;
+  }
+  .de { font-size: 15px; color: #999; margin-bottom: 4px; }
+  .pl { font-size: 17px; color: #c4b5fd; font-weight: 600; }
+  .reps { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .play-btn {
+    background: #7c3aed; color: #fff; border: none; border-radius: 6px;
+    padding: 8px 14px; font-size: 14px; cursor: pointer;
+  }
+  .play-btn.playing { background: #ef4444; }
+  .test-section { margin: 20px 0; padding: 14px; background: #2a1a3e; border-radius: 10px; }
+  .test-title { color: #f59e0b; font-size: 14px; margin-bottom: 8px; }
+  .log { font-size: 12px; color: #666; margin-top: 8px; font-family: monospace; white-space: pre-wrap; }
+</style>
+</head>
+<body>
+
+<h1>Audio PoC — iOS Test</h1>
+<p class="info">Testet Audio-Playback auf iOS Safari. MP3 wird direkt als Datei geladen (kein IndexedDB).</p>
+
+<!-- DOM audio element — the key for iOS -->
+<audio id="audio" preload="auto" src="test-audio.mp3"></audio>
+
+<div class="test-section">
+  <div class="test-title">Test 1: Einfacher Play (direkte Datei-URL)</div>
+  <button class="play-btn" id="test-simple">&#9654; Play 27s–31s</button>
+  <div class="log" id="log-simple"></div>
+</div>
+
+<div class="test-section">
+  <div class="test-title">Test 2: Blob-URL (simuliert IndexedDB)</div>
+  <button class="play-btn" id="test-blob">&#9654; Play 27s–31s (Blob)</button>
+  <div class="log" id="log-blob"></div>
+</div>
+
+<div style="margin-top:20px;">
+  <div class="info">Erste 3 Karten aus Chunk 000:</div>
+</div>
+
+<div class="card">
+  <div class="de">Herzlich Willkommen in Polen!</div>
+  <div class="pl">Serdecznie witamy w Polsce!</div>
+  <div class="reps">
+    <button class="play-btn" onclick="play(27.02,31.02)">&#9654; 0:27</button>
+    <button class="play-btn" onclick="play(33.02,37.87)">&#9654; 0:33</button>
+    <button class="play-btn" onclick="play(37.87,39.87)">&#9654; 0:37</button>
+  </div>
+</div>
+
+<div class="card">
+  <div class="de">Wie war die Reise?</div>
+  <div class="pl">Jak minela podroz?</div>
+  <div class="reps">
+    <button class="play-btn" onclick="play(46.80,48.80)">&#9654; 0:46</button>
+    <button class="play-btn" onclick="play(50.80,53.80)">&#9654; 0:50</button>
+    <button class="play-btn" onclick="play(53.80,55.80)">&#9654; 0:53</button>
+  </div>
+</div>
+
+<div class="card">
+  <div class="de">Danke, sehr gut.</div>
+  <div class="pl">Dziekuje, bardzo dobrze.</div>
+  <div class="reps">
+    <button class="play-btn" onclick="play(59.56,63.56)">&#9654; 0:59</button>
+  </div>
+</div>
+
+<script>
+const audio = document.getElementById('audio');
+let stopAt = null;
+
+// Stop at end timestamp
+audio.addEventListener('timeupdate', () => {
+  if (stopAt != null && audio.currentTime >= stopAt) {
+    audio.pause();
+    stopAt = null;
+    document.querySelectorAll('.play-btn.playing').forEach(b => b.classList.remove('playing'));
+  }
+});
+
+// Simple play with direct file URL
+function play(start, end) {
+  audio.currentTime = Math.max(0, start - 0.15);
+  stopAt = end;
+  audio.play();
+}
+
+// Test 1: Simple play
+document.getElementById('test-simple').addEventListener('click', function() {
+  const log = document.getElementById('log-simple');
+  log.textContent = 'Trying play()...\n';
+  log.textContent += 'audio.src: ' + audio.src + '\n';
+  log.textContent += 'audio.readyState: ' + audio.readyState + '\n';
+  audio.currentTime = 27.0;
+  stopAt = 31.0;
+  audio.play().then(() => {
+    log.textContent += 'SUCCESS — audio playing\n';
+  }).catch(err => {
+    log.textContent += 'FAILED: ' + err.message + '\n';
+  });
+});
+
+// Test 2: Blob URL (simulates IndexedDB scenario)
+document.getElementById('test-blob').addEventListener('click', async function() {
+  const log = document.getElementById('log-blob');
+  log.textContent = 'Fetching MP3 as blob...\n';
+  try {
+    const resp = await fetch('test-audio.mp3');
+    const blob = await resp.blob();
+    log.textContent += 'Blob size: ' + blob.size + ' bytes\n';
+    const url = URL.createObjectURL(blob);
+    audio.src = url;
+    audio.load();
+    log.textContent += 'Blob URL set, calling load()...\n';
+    // Wait for enough data
+    audio.addEventListener('canplay', function onCanPlay() {
+      audio.removeEventListener('canplay', onCanPlay);
+      log.textContent += 'canplay fired, readyState: ' + audio.readyState + '\n';
+      log.textContent += 'NOTE: Now tap the button AGAIN to test play()\n';
+    });
+  } catch (err) {
+    log.textContent += 'ERROR: ' + err.message + '\n';
+  }
+});
+</script>
+</body>
+</html>
