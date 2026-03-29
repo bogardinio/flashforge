@@ -848,6 +848,7 @@
             <button class="audio-play-btn hidden" id="btn-card-audio" aria-label="Audio abspielen">
               🔊
             </button>
+            <audio id="card-audio-el" preload="auto" style="display:none;"></audio>
           </div>
         </div>
       </div>
@@ -1495,7 +1496,7 @@ function splitCSVLine(line, delim) {
 // ════════════════════════════════════════════════════════════
 // APP STATE
 // ════════════════════════════════════════════════════════════
-const APP_VERSION = '1.1.8';
+const APP_VERSION = '1.1.9';
 const db    = new FlashDB();
 const state = {
   // review session
@@ -2382,10 +2383,11 @@ async function confirmRename() {
 // ════════════════════════════════════════════════════════════
 // AUDIO PLAYBACK
 // ════════════════════════════════════════════════════════════
-let _audioEl = null;
 let _audioStopAt = null;
 let _audioRepIdx = 0;
-let _audioReps = [];
+let _audioLoadedName = null;
+
+function _audioEl() { return document.getElementById('card-audio-el'); }
 
 function parseAudioTimestamps(str) {
   if (!str) return [];
@@ -2412,40 +2414,30 @@ async function preloadCardAudio() {
   if (!card.audioFile) return;
 
   // Already loaded for this file?
-  if (_audioEl && _audioEl.dataset.name === card.audioFile) return;
+  if (_audioLoadedName === card.audioFile) return;
 
   const rec = await db.getAudio(card.audioFile);
   if (!rec || !rec.blob) return;
 
-  if (_audioEl) { _audioEl.pause(); URL.revokeObjectURL(_audioEl.src); }
-  const url = URL.createObjectURL(rec.blob instanceof Blob ? rec.blob : new Blob([rec.blob]));
-  _audioEl = new Audio(url);
-  _audioEl.dataset.name = card.audioFile;
-  _audioEl.addEventListener('timeupdate', () => {
-    if (_audioStopAt != null && _audioEl.currentTime >= _audioStopAt) {
-      stopCardAudio();
-    }
-  });
-  _audioEl.addEventListener('error', () => {
-    showToast('Audio konnte nicht abgespielt werden');
-    stopCardAudio();
-  });
+  const el = _audioEl();
+  if (el.src) URL.revokeObjectURL(el.src);
+  el.src = URL.createObjectURL(rec.blob instanceof Blob ? rec.blob : new Blob([rec.blob]));
+  el.load();  // Important for iOS — triggers resource loading
+  _audioLoadedName = card.audioFile;
 }
 
 function playCardAudio() {
+  const el = _audioEl();
   const card = state.reviewQueue[state.reviewIdx];
-  if (!card || !card.audioTimestamps) return;
-
-  const btn = document.getElementById('btn-card-audio');
-
-  if (!_audioEl || _audioEl.dataset.name !== (card.audioFile || '')) {
-    showToast('Audio wird geladen…');
-    preloadCardAudio().then(() => playCardAudio());
+  if (!card || !card.audioTimestamps || !el.src) {
+    showToast('Audio nicht verfügbar — Deck-Editor → MP3 zuordnen');
     return;
   }
 
+  const btn = document.getElementById('btn-card-audio');
+
   // If already playing, stop
-  if (!_audioEl.paused) {
+  if (!el.paused) {
     stopCardAudio();
     return;
   }
@@ -2453,18 +2445,13 @@ function playCardAudio() {
   const reps = parseAudioTimestamps(card.audioTimestamps);
   if (reps.length === 0) return;
 
-  // Cycle through repetitions on repeated presses
-  _audioReps = reps;
+  const rep = reps[_audioRepIdx % reps.length];
   _audioRepIdx = (_audioRepIdx + 1) % reps.length;
-  if (_audioRepIdx === 1 && _audioReps.length > 1) _audioRepIdx = 0; // first press = first rep
-
-  const rep = reps[_audioRepIdx];
 
   btn.classList.add('playing');
-  _audioEl.currentTime = Math.max(0, rep.start - 0.15);
+  el.currentTime = Math.max(0, rep.start - 0.15);
   _audioStopAt = rep.end;
-  // Synchronous play() call — no await before this, so iOS user-gesture is preserved
-  _audioEl.play().catch(err => {
+  el.play().catch(err => {
     console.error('Audio play error:', err);
     showToast('Audio-Wiedergabe fehlgeschlagen');
     stopCardAudio();
@@ -2472,10 +2459,10 @@ function playCardAudio() {
 }
 
 function stopCardAudio() {
-  if (_audioEl) _audioEl.pause();
+  const el = _audioEl();
+  el.pause();
   _audioStopAt = null;
-  const btn = document.getElementById('btn-card-audio');
-  btn.classList.remove('playing');
+  document.getElementById('btn-card-audio').classList.remove('playing');
 }
 
 // ════════════════════════════════════════════════════════════
@@ -2622,8 +2609,16 @@ function wireEvents() {
 
   // Review: audio play button
   document.getElementById('btn-card-audio').addEventListener('click', e => {
-    e.stopPropagation(); // don't trigger card flip
+    e.stopPropagation();
     playCardAudio();
+  });
+  document.getElementById('card-audio-el').addEventListener('timeupdate', () => {
+    const el = document.getElementById('card-audio-el');
+    if (_audioStopAt != null && el.currentTime >= _audioStopAt) stopCardAudio();
+  });
+  document.getElementById('card-audio-el').addEventListener('error', () => {
+    showToast('Audio konnte nicht geladen werden');
+    stopCardAudio();
   });
 
   // Backup modal
