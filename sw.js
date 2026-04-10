@@ -1,5 +1,5 @@
-// FlashForge Service Worker — Cache-First Offline Strategy
-const CACHE = 'flashforge-v19';
+// MemoCat Service Worker — Cache-First Offline Strategy
+const CACHE = 'memocat-v19';
 
 // Only local assets — external URLs (fonts) are cached dynamically on first fetch
 const LOCAL_ASSETS = [
@@ -81,7 +81,7 @@ self.addEventListener('fetch', e => {
 // Read audio blob from IndexedDB (shared with main app)
 function getAudioFromDB(name) {
   return new Promise((resolve, reject) => {
-    const req = indexedDB.open('flashforge', 3);
+    const req = indexedDB.open('memocat', 3);
     req.onsuccess = e => {
       const db = e.target.result;
       if (!db.objectStoreNames.contains('audio')) { resolve(null); return; }

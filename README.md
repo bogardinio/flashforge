@@ -1,4 +1,4 @@
-# FlashForge ⚡
+# MemoCat
 
 
 Karteikarten-App fürs iPhone 
@@ -15,7 +15,7 @@ Karteikarten-App fürs iPhone
 
 ### 1. App öffnen & installieren
 
-1. **[flashforge öffnen](https://bogardinio.github.io/flashforge/)** — in Safari auf dem iPhone (kein Chrome, kein Firefox)
+1. **[memocat öffnen](https://bogardinio.github.io/memocat/)** — in Safari auf dem iPhone (kein Chrome, kein Firefox)
 2. Teilen-Button antippen → **„Zum Home-Bildschirm"** → Hinzufügen
 
 Die App startet danach wie eine native App, funktioniert vollständig offline.
@@ -46,7 +46,7 @@ Den Lernfortschritt speichert die App automatisch lokal auf dem Gerät.
 
 1. Anki Desktop → Datei → Exportieren
 2. Format: **„Notizen im Klartext (.txt)"**
-3. Exportierte Datei in FlashForge importieren
+3. Exportierte Datei in MemoCat importieren
 
 ---
 
@@ -86,7 +86,7 @@ Standardmäßig liegt dein Lernfortschritt nur lokal auf dem Gerät. Wer ihn sic
 1. GitHub → **Settings** → **Developer settings** → **Personal access tokens** → **Fine-grained tokens**
 2. **Generate new token** klicken
 3. Einstellungen:
-   - **Token name:** z.B. `FlashForge`
+   - **Token name:** z.B. `MemoCat`
    - **Expiration:** nach Bedarf (z.B. 1 Jahr)
    - **Repository access:** „Only select repositories" → dein privates Repo auswählen
 4. Unter **Permissions → Repository permissions:**
@@ -96,7 +96,7 @@ Standardmäßig liegt dein Lernfortschritt nur lokal auf dem Gerät. Wer ihn sic
 
 ---
 
-### Schritt 3 — In FlashForge einrichten
+### Schritt 3 — In MemoCat einrichten
 
 In der App: **Einstellungen → GitHub-Sync**
 

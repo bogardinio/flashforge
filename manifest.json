@@ -1,6 +1,6 @@
 {
-  "name": "FlashForge",
-  "short_name": "FlashForge",
+  "name": "MemoCat",
+  "short_name": "MemoCat",
   "description": "Spaced-Repetition Karteikarten für unterwegs",
   "start_url": "./",
   "display": "standalone",
