@@ -711,6 +711,40 @@
       cursor: pointer; font-family: inherit;
     }
     .editor-add-row:active { background: var(--surface2); }
+    .editor-audio-btn {
+      background: none; border: none; color: var(--text-muted); cursor: pointer;
+      padding: 6px 4px; font-size: 16px; line-height: 1; display: block;
+    }
+    .editor-audio-btn:active { color: var(--accent); }
+
+    /* ── Search Screen ── */
+    .search-input {
+      flex: 1; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; color: var(--text); font-size: 16px;
+      font-family: inherit; padding: 8px 12px; min-width: 0;
+      -webkit-user-select: text; user-select: text;
+    }
+    .search-input:focus { outline: none; border-color: var(--accent); }
+    .search-card-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 4px; border-bottom: 1px solid var(--border);
+    }
+    .search-card-body { flex: 1; min-width: 0; }
+    .search-deck-label {
+      font-size: 10px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: .6px; color: var(--text-muted); margin-bottom: 2px;
+    }
+    .search-front { font-size: 14px; color: var(--text); display: block; }
+    .search-back  { font-size: 13px; color: var(--text-muted); display: block; }
+    .search-actions { display: flex; gap: 2px; flex-shrink: 0; }
+    #search-empty {
+      text-align: center; color: var(--text-muted);
+      font-size: 15px; margin-top: 48px;
+    }
+
+    /* ── Review undo button ── */
+    #btn-review-undo { opacity: 0.5; }
+    #btn-review-undo.active { opacity: 1; }
   </style>
 </head>
 
@@ -724,20 +758,17 @@
     <div class="header">
       <img src="anki-icon.png" class="app-logo" alt="">
       <span class="header-title">MemoCat</span>
-      <button class="icon-btn" id="btn-import-nav" aria-label="CSV importieren" title="CSV importieren">
-        <!-- Upload icon -->
+      <button class="icon-btn" id="btn-search-nav" aria-label="Suchen" title="Suchen">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
-          <polyline points="17 8 12 3 7 8"/>
-          <line x1="12" y1="3" x2="12" y2="15"/>
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
         </svg>
       </button>
-      <button class="icon-btn" id="btn-backup-open" aria-label="Backup & Export" title="Backup & Export">
-        <!-- Archive icon -->
+      <button class="icon-btn" id="btn-backup-open" aria-label="Einstellungen" title="Einstellungen">
+        <!-- Gear icon -->
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="21 8 21 21 3 21 3 8"/>
-          <rect x="1" y="3" width="22" height="5"/>
-          <line x1="10" y1="12" x2="14" y2="12"/>
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
         </svg>
       </button>
     </div>
@@ -806,6 +837,12 @@
         <div class="review-deck-name" id="review-deck-name"></div>
         <div class="review-counter" id="review-counter">0 / 0</div>
       </div>
+      <button class="icon-btn" id="btn-review-undo" aria-label="Letzte Karte zurück" title="Letzte Karte zurück">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 14 4 9 9 4"/>
+          <path d="M20 20v-7a4 4 0 00-4-4H4"/>
+        </svg>
+      </button>
       <button class="icon-btn" id="btn-pin-card" aria-label="Karte markieren" title="Karte markieren">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
@@ -1028,6 +1065,17 @@
     <div class="modal-sheet">
       <div class="modal-title">Backup & Export</div>
 
+      <button class="modal-btn" id="btn-import-csv-modal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/>
+          <line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+        CSV importieren
+      </button>
+
+      <div style="border-top:1px solid var(--border);margin:12px 0 10px;"></div>
+
       <button class="modal-btn" id="btn-export-json">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
@@ -1167,10 +1215,11 @@
       <table class="editor-table" id="editor-table">
         <thead>
           <tr>
-            <th style="width:43%">Vorderseite</th>
-            <th style="width:43%">Rückseite</th>
-            <th style="width:7%">⭐</th>
-            <th style="width:7%"></th>
+            <th style="width:41%">Vorderseite</th>
+            <th style="width:41%">Rückseite</th>
+            <th style="width:6%">🔊</th>
+            <th style="width:6%">⭐</th>
+            <th style="width:6%"></th>
           </tr>
         </thead>
         <tbody id="editor-tbody"></tbody>
@@ -1186,6 +1235,26 @@
       </div>
     </div>
   </div>
+
+  <!-- ════════════════════════════════════════
+       SEARCH SCREEN
+       ════════════════════════════════════════ -->
+  <div id="screen-search" class="screen">
+    <div class="header">
+      <button class="icon-btn" id="btn-search-back" aria-label="Zurück">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </button>
+      <input type="text" class="search-input" id="search-input"
+        placeholder="Suchen…" autocomplete="off" autocorrect="off"
+        autocapitalize="off" spellcheck="false">
+    </div>
+    <div class="content" id="search-results"></div>
+  </div>
+
+  <!-- Shared audio element for deck browser / search -->
+  <audio id="browser-audio-el" preload="none" style="display:none;"></audio>
 
 </div><!-- #app -->
 
@@ -1497,7 +1566,7 @@ function splitCSVLine(line, delim) {
 // ════════════════════════════════════════════════════════════
 // APP STATE
 // ════════════════════════════════════════════════════════════
-const APP_VERSION = '1.2.3';
+const APP_VERSION = '1.2.4';
 const db    = new FlashDB();
 const state = {
   // review session
@@ -1519,8 +1588,9 @@ const state = {
 function navigate(screen) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(`screen-${screen}`).classList.add('active');
-  if (screen === 'home')  renderHome();
-  if (screen === 'stats') renderStats();
+  if (screen === 'home')   renderHome();
+  if (screen === 'stats')  renderStats();
+  if (screen === 'search') openSearch();
 }
 
 // ════════════════════════════════════════════════════════════
@@ -1694,6 +1764,9 @@ function showCard() {
   const pinned = !!card.pinned;
   document.getElementById('btn-pin-card').classList.toggle('pinned', pinned);
   document.getElementById('card-pin-star').classList.toggle('pinned', pinned);
+
+  // Undo button: only active when not on first card
+  document.getElementById('btn-review-undo').classList.toggle('active', state.reviewIdx > 0);
 }
 
 function flipCard() {
@@ -1727,6 +1800,12 @@ async function rateCard(rating) {
   } else {
     showCard();
   }
+}
+
+function undoReview() {
+  if (state.reviewIdx <= 0) return;
+  state.reviewIdx--;
+  showCard();
 }
 
 function showDone() {
@@ -2215,6 +2294,142 @@ async function renderSyncLog() {
   }).join('');
 }
 
+// ════════════════════════════════════════════════════════════
+// SEARCH SCREEN
+// ════════════════════════════════════════════════════════════
+let _searchAllCards = [];   // cache: [{card, deckName}]
+let _browserAudioName = null;
+let _browserStopAt = null;
+
+async function openSearch() {
+  // Load all decks + cards once
+  const decks = await db.getDecks();
+  const deckMap = Object.fromEntries(decks.map(d => [d.id, d.name]));
+  const all = [];
+  for (const d of decks) {
+    const cards = await db.getCards(d.id);
+    cards.forEach(c => all.push({ card: c, deckName: deckMap[d.id] || '' }));
+  }
+  _searchAllCards = all;
+
+  const input = document.getElementById('search-input');
+  input.value = '';
+  renderSearch('');
+  setTimeout(() => input.focus(), 80);
+}
+
+function renderSearch(query) {
+  const q = query.trim().toLowerCase();
+  const container = document.getElementById('search-results');
+
+  const matches = q === ''
+    ? _searchAllCards
+    : _searchAllCards.filter(({ card }) =>
+        card.front.toLowerCase().includes(q) || card.back.toLowerCase().includes(q));
+
+  if (matches.length === 0) {
+    container.innerHTML = `<div id="search-empty">${q ? 'Keine Treffer' : 'Keine Karten vorhanden'}</div>`;
+    return;
+  }
+
+  container.innerHTML = '';
+  matches.forEach(({ card, deckName }) => {
+    const row = document.createElement('div');
+    row.className = 'search-card-row';
+
+    const body = document.createElement('div');
+    body.className = 'search-card-body';
+    body.innerHTML = `
+      <div class="search-deck-label">${deckName}</div>
+      <span class="search-front">${card.front}</span>
+      <span class="search-back">${card.back}</span>`;
+
+    const actions = document.createElement('div');
+    actions.className = 'search-actions';
+
+    // Speaker button (hidden if no audio)
+    if (card.audioTimestamps) {
+      const audioBtn = document.createElement('button');
+      audioBtn.className = 'editor-audio-btn';
+      audioBtn.textContent = '🔊';
+      audioBtn.title = 'Audio abspielen';
+      audioBtn.addEventListener('click', () => playBrowserAudio(card, audioBtn));
+      audioBtn.addEventListener('touchend', e => { e.preventDefault(); playBrowserAudio(card, audioBtn); });
+      actions.appendChild(audioBtn);
+    }
+
+    // Pin button
+    const pinBtn = document.createElement('button');
+    pinBtn.className = 'editor-pin-btn' + (card.pinned ? ' pinned' : '');
+    pinBtn.textContent = '⭐';
+    pinBtn.title = card.pinned ? 'Markierung entfernen' : 'Karte markieren';
+    pinBtn.addEventListener('click', async () => {
+      card.pinned = !card.pinned;
+      await db.updateCard(card);
+      pinBtn.classList.toggle('pinned', !!card.pinned);
+      pinBtn.title = card.pinned ? 'Markierung entfernen' : 'Karte markieren';
+    });
+    actions.appendChild(pinBtn);
+
+    // Delete button
+    const delBtn = document.createElement('button');
+    delBtn.className = 'editor-del-btn';
+    delBtn.textContent = '🗑';
+    delBtn.title = 'Karte löschen';
+    delBtn.addEventListener('click', async () => {
+      if (!confirm('Karte löschen?')) return;
+      await db.deleteCard(card.id);
+      _searchAllCards = _searchAllCards.filter(e => e.card.id !== card.id);
+      row.remove();
+    });
+    actions.appendChild(delBtn);
+
+    row.appendChild(body);
+    row.appendChild(actions);
+    container.appendChild(row);
+  });
+}
+
+async function playBrowserAudio(card, btn) {
+  const el = document.getElementById('browser-audio-el');
+
+  // Resolve audioFile from deck siblings if missing
+  if (!card.audioFile) {
+    const deckCards = await db.getCards(card.deckId);
+    const withAudio = deckCards.find(c => c.audioFile);
+    if (withAudio) { card.audioFile = withAudio.audioFile; await db.updateCard(card); }
+  }
+  if (!card.audioFile || !card.audioTimestamps) {
+    showToast('Audio nicht verfügbar');
+    return;
+  }
+
+  // Stop if already playing this button
+  if (!el.paused && btn.classList.contains('playing')) {
+    el.pause();
+    btn.classList.remove('playing');
+    _browserStopAt = null;
+    return;
+  }
+
+  // Load file if different
+  if (_browserAudioName !== card.audioFile) {
+    el.src = './audio/' + card.audioFile;
+    el.load();
+    _browserAudioName = card.audioFile;
+  }
+
+  const reps = parseAudioTimestamps(card.audioTimestamps);
+  if (!reps.length) return;
+  const rep = reps[0];
+
+  document.querySelectorAll('.editor-audio-btn.playing').forEach(b => b.classList.remove('playing'));
+  btn.classList.add('playing');
+  _browserStopAt = rep.end;
+  el.currentTime = Math.max(0, rep.start - 0.15);
+  el.play().catch(() => { showToast('Audio-Wiedergabe fehlgeschlagen'); btn.classList.remove('playing'); });
+}
+
 function openBackupModal() {
   document.getElementById('backup-modal').classList.add('open');
   document.getElementById('app-version-label').textContent = `MemoCat v${APP_VERSION}`;
@@ -2295,6 +2510,18 @@ function addEditorRow(card, tbody) {
   const tdBack = document.createElement('td');
   tdBack.appendChild(makeTA('back'));
 
+  // Speaker button (hidden if no audio)
+  const tdAudio = document.createElement('td');
+  if (card.audioTimestamps) {
+    const audioBtn = document.createElement('button');
+    audioBtn.className = 'editor-audio-btn';
+    audioBtn.textContent = '🔊';
+    audioBtn.title = 'Audio abspielen';
+    audioBtn.addEventListener('click', () => playBrowserAudio(card, audioBtn));
+    audioBtn.addEventListener('touchend', e => { e.preventDefault(); playBrowserAudio(card, audioBtn); });
+    tdAudio.appendChild(audioBtn);
+  }
+
   const tdPin = document.createElement('td');
   const pinBtn = document.createElement('button');
   pinBtn.className = 'editor-pin-btn' + (card.pinned ? ' pinned' : '');
@@ -2324,6 +2551,7 @@ function addEditorRow(card, tbody) {
 
   tr.appendChild(tdFront);
   tr.appendChild(tdBack);
+  tr.appendChild(tdAudio);
   tr.appendChild(tdPin);
   tr.appendChild(tdDel);
   tbody.appendChild(tr);
@@ -2536,8 +2764,10 @@ function wireEvents() {
     });
   });
 
-  // Home: open import
-  document.getElementById('btn-import-nav').addEventListener('click', openImport);
+  // Home: search
+  document.getElementById('btn-search-nav').addEventListener('click', () => navigate('search'));
+  document.getElementById('btn-search-back').addEventListener('click', () => navigate('home'));
+  document.getElementById('search-input').addEventListener('input', e => renderSearch(e.target.value));
 
   // Home: backup modal
   document.getElementById('btn-backup-open').addEventListener('click', openBackupModal);
@@ -2564,7 +2794,8 @@ function wireEvents() {
     if (btn) rateCard(Number(btn.dataset.rating));
   });
 
-  // Review: pin and edit buttons
+  // Review: undo, pin and edit buttons
+  document.getElementById('btn-review-undo').addEventListener('click', undoReview);
   document.getElementById('btn-pin-card').addEventListener('click', pinCurrentCard);
   document.getElementById('btn-edit-card').addEventListener('click', openEditModal);
 
@@ -2635,10 +2866,21 @@ function wireEvents() {
     const el = document.getElementById('card-audio-el');
     if (_audioStopAt != null && el.currentTime >= _audioStopAt) stopCardAudio();
   });
+  document.getElementById('browser-audio-el').addEventListener('timeupdate', () => {
+    const el = document.getElementById('browser-audio-el');
+    if (_browserStopAt != null && el.currentTime >= _browserStopAt) {
+      el.pause();
+      _browserStopAt = null;
+      document.querySelectorAll('.editor-audio-btn.playing').forEach(b => b.classList.remove('playing'));
+    }
+  });
   document.getElementById('card-audio-el').addEventListener('error', () => {
     showToast('Audio konnte nicht geladen werden');
     stopCardAudio();
   });
+
+  // Backup modal: CSV import
+  document.getElementById('btn-import-csv-modal').addEventListener('click', () => { closeBackupModal(); openImport(); });
 
   // Backup modal
   document.getElementById('btn-export-json').addEventListener('click', exportJSON);
